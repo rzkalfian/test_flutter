@@ -9,10 +9,37 @@ class FormPage extends StatefulWidget {
 
   @override
   _FormPageState createState() => _FormPageState();
+
+  void onNextClicked(
+    String firstName,
+    String lastName,
+    String biodata,
+    String tempProv,
+    String tempKota,
+    String tempKec,
+    String tempKel,
+  ) {
+    // Implementasikan logika yang ingin Anda lakukan dengan data di sini
+    print('First Name: $firstName');
+    print('Last Name: $lastName');
+    print('Bio: $biodata');
+    print('Provinsi: $tempProv');
+    print('Kota: $tempKota');
+    print('Kecamatan: $tempKec');
+    print('Kelurahan: $tempKel');
+  }
 }
 
 class _FormPageState extends State<FormPage> {
   int currentStep = 0;
+  // PageScreen1 pageScreen1 = PageScreen1();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController biodataController = TextEditingController();
+  String? tempProv;
+  String? tempKota;
+  String? tempKec;
+  String? tempKel;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +65,7 @@ class _FormPageState extends State<FormPage> {
               bool isLastStep = (currentStep == getSteps().length - 1);
               if (isLastStep) {
                 //Do something with this information
+                widget.onNextClicked;
               } else {
                 setState(() {
                   currentStep += 1;
@@ -60,7 +88,15 @@ class _FormPageState extends State<FormPage> {
         state: currentStep > 0 ? StepState.complete : StepState.indexed,
         isActive: currentStep >= 0,
         title: const Text("Account"),
-        content: PageScreen1(),
+        content: PageScreen1(
+          onNextClicked: (String firstName,
+              String lastName,
+              String biodata,
+              String? tempProv,
+              String? tempKota,
+              String? tempKab,
+              String? tempKel) {},
+        ),
       ),
       Step(
           state: currentStep > 1 ? StepState.complete : StepState.indexed,
@@ -73,53 +109,5 @@ class _FormPageState extends State<FormPage> {
           title: const Text("Bio"),
           content: PageScreen3()),
     ];
-  }
-}
-
-class Wizard2 extends StatefulWidget {
-  const Wizard2({Key? key}) : super(key: key);
-
-  @override
-  _Wizard2State createState() => _Wizard2State();
-}
-
-class _Wizard2State extends State<Wizard2> {
-  // TODO: Implement the second wizard screen (photo upload)
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          // TODO: Add UI components for photo upload
-          const Text('Wizard 2 - Photo Upload Screen'),
-          const SizedBox(height: 16),
-          ElevatedButton(
-            onPressed: () {
-              // TODO: Navigate to the next wizard screen (Wizard3)
-            },
-            child: const Text('Next'),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class Wizard3 extends StatelessWidget {
-  // TODO: Implement the third wizard screen (display JSON data)
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: [
-          // TODO: Add UI components to display JSON data
-          const Text('Wizard 3 - Display JSON Data Screen'),
-        ],
-      ),
-    );
   }
 }

@@ -3,7 +3,19 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:ionicons/ionicons.dart';
 
 class PageScreen1 extends StatefulWidget {
-  const PageScreen1({super.key});
+  final Function(
+      String firstName,
+      String lastName,
+      String biodata,
+      String? tempProv,
+      String? tempKota,
+      String? tempKab,
+      String? tempKel) onNextClicked;
+
+  const PageScreen1({
+    super.key,
+    required this.onNextClicked,
+  });
 
   @override
   State<PageScreen1> createState() => _PageScreen1State();
