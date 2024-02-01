@@ -6,9 +6,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:test_flutter/form_page.dart';
 
 class PageScreen2 extends StatefulWidget {
-  const PageScreen2({super.key});
+  final FormDataModel formData;
+  const PageScreen2(this.formData, {Key? key}) : super(key: key);
 
   @override
   State<PageScreen2> createState() => _PageScreen2State();
@@ -22,6 +24,7 @@ class _PageScreen2State extends State<PageScreen2> {
     try {
       final image = await ImagePicker().pickImage(source: source);
       if (image != null) {
+        widget.formData.imagePath = image.path;
         return image;
       }
     } catch (e) {
@@ -55,7 +58,7 @@ class _PageScreen2State extends State<PageScreen2> {
                           path.basename(File(_image!.path).path),
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 12, fontWeight: FontWeight.w400),
                         )
                       : Container()),
@@ -84,17 +87,17 @@ class _PageScreen2State extends State<PageScreen2> {
                                   });
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.camera_alt_rounded,
                                 color: Colors.blue,
                               ),
                             ),
-                            Text("Camera")
+                            const Text("Camera")
                           ],
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 8,
                     ),
                     Expanded(
@@ -116,12 +119,12 @@ class _PageScreen2State extends State<PageScreen2> {
                                   });
                                 }
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.image_rounded,
                                 color: Colors.blue,
                               ),
                             ),
-                            Text("Gallery")
+                            const Text("Gallery")
                           ],
                         ),
                       ),
@@ -170,8 +173,8 @@ class _PageScreen2State extends State<PageScreen2> {
                                         PhotoViewComputedScale.covered * 2,
                                   );
                                 },
-                                scrollPhysics: BouncingScrollPhysics(),
-                                backgroundDecoration: BoxDecoration(
+                                scrollPhysics: const BouncingScrollPhysics(),
+                                backgroundDecoration: const BoxDecoration(
                                   color: Colors.black,
                                 ),
                                 pageController: PageController(),

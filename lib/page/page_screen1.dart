@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:test_flutter/form_page.dart';
 
 class PageScreen1 extends StatefulWidget {
-  final Function(
-      String firstName,
-      String lastName,
-      String biodata,
-      String? tempProv,
-      String? tempKota,
-      String? tempKab,
-      String? tempKel) onNextClicked;
-
-  const PageScreen1({
-    super.key,
-    required this.onNextClicked,
-  });
+  final FormDataModel formData;
+  const PageScreen1(this.formData, {Key? key}) : super(key: key);
 
   @override
   State<PageScreen1> createState() => _PageScreen1State();
@@ -25,6 +15,19 @@ class _PageScreen1State extends State<PageScreen1> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController biodataController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Set default values from the formData when available
+    firstNameController.text = widget.formData.firstName;
+    lastNameController.text = widget.formData.lastName;
+    biodataController.text = widget.formData.biodata;
+    tempProv = widget.formData.provinsi;
+    tempKota = widget.formData.kota;
+    tempKec = widget.formData.kecamatan;
+    tempKel = widget.formData.kelurahan;
+  }
 
   List<String> provinsiList = [
     'Provinsi A',
@@ -92,6 +95,9 @@ class _PageScreen1State extends State<PageScreen1> {
               const SizedBox(height: 5),
               TextField(
                 controller: firstNameController,
+                onChanged: (value) {
+                  widget.formData.firstName = value;
+                },
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                   enabledBorder: OutlineInputBorder(
@@ -121,6 +127,9 @@ class _PageScreen1State extends State<PageScreen1> {
               const SizedBox(height: 5),
               TextField(
                 controller: lastNameController,
+                onChanged: (value) {
+                  widget.formData.lastName = value;
+                },
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
                   enabledBorder: OutlineInputBorder(
@@ -150,6 +159,9 @@ class _PageScreen1State extends State<PageScreen1> {
               const SizedBox(height: 5),
               TextField(
                 controller: biodataController,
+                onChanged: (value) {
+                  widget.formData.biodata = value;
+                },
                 maxLines: 4,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -205,12 +217,13 @@ class _PageScreen1State extends State<PageScreen1> {
                 ),
                 items: provinsiList.map((map) => map.toString()).toList(),
                 onChanged: (value) {
-                  final selectedDescId =
-                      provinsiList.firstWhere((map) => map.toString() == value);
-                  print("value city ID: $selectedDescId");
+                  // final selectedDescId =
+                  //     provinsiList.firstWhere((map) => map.toString() == value);
+                  // print("value city ID: $selectedDescId");
                   setState(() {
                     selectedProvinsi = value;
-                    tempProv = selectedProvinsi!;
+                    widget.formData.provinsi = selectedProvinsi;
+                    tempProv = widget.formData.provinsi;
                     print("value Prov:$tempProv");
                   });
                 },
@@ -271,12 +284,13 @@ class _PageScreen1State extends State<PageScreen1> {
                 ),
                 items: kotaList.map((map) => map.toString()).toList(),
                 onChanged: (value) {
-                  final selectedDescId =
-                      kotaList.firstWhere((map) => map.toString() == value);
-                  print("value city ID: $selectedDescId");
+                  // final selectedDescId =
+                  //     kotaList.firstWhere((map) => map.toString() == value);
+                  // print("value city ID: $selectedDescId");
                   setState(() {
                     selectedKota = value;
-                    tempKota = selectedKota!;
+                    widget.formData.kota = selectedKota;
+                    tempKota = widget.formData.kota;
                     print("value Prov:$tempKota");
                   });
                 },
@@ -337,12 +351,13 @@ class _PageScreen1State extends State<PageScreen1> {
                 ),
                 items: kecamatanList.map((map) => map.toString()).toList(),
                 onChanged: (value) {
-                  final selectedDescId = kecamatanList
-                      .firstWhere((map) => map.toString() == value);
-                  print("value city ID: $selectedDescId");
+                  // final selectedDescId = kecamatanList
+                  //     .firstWhere((map) => map.toString() == value);
+                  // print("value city ID: $selectedDescId");
                   setState(() {
                     selectedKecamatan = value;
-                    tempKec = selectedKecamatan!;
+                    widget.formData.kecamatan = selectedKecamatan;
+                    tempKec = widget.formData.kecamatan;
                     print("value Prov:$tempKec");
                   });
                 },
@@ -403,12 +418,13 @@ class _PageScreen1State extends State<PageScreen1> {
                 ),
                 items: kelurahanList.map((map) => map.toString()).toList(),
                 onChanged: (value) {
-                  final selectedDescId = kelurahanList
-                      .firstWhere((map) => map.toString() == value);
-                  print("value city ID: $selectedDescId");
+                  // final selectedDescId = kelurahanList
+                  //     .firstWhere((map) => map.toString() == value);
+                  // print("value city ID: $selectedDescId");
                   setState(() {
                     selectedKelurahan = value;
-                    tempKel = selectedKelurahan!;
+                    widget.formData.kelurahan = selectedKelurahan;
+                    tempKel = widget.formData.kelurahan;
                     print("value Prov:$tempKel");
                   });
                 },
