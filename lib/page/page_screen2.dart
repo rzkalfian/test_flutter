@@ -3,6 +3,8 @@ import 'package:path/path.dart' as path;
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class PageScreen2 extends StatefulWidget {
@@ -28,15 +30,6 @@ class _PageScreen2State extends State<PageScreen2> {
     }
     return null;
   }
-  // Future<XFile?> getImageFromCamera() async {
-  //   var image = await pickImage(source: ImageSource.camera);
-  //   return image;
-  // }
-
-  // Future<XFile?> getImageFromGallery() async {
-  //   var image = await pickImage(source: ImageSource.gallery);
-  //   return image;
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -153,23 +146,37 @@ class _PageScreen2State extends State<PageScreen2> {
                     const SizedBox(height: 5),
                     Center(
                       child: Container(
-                          padding: const EdgeInsets.all(5),
-                          height: 240,
-                          // width: 300,
-                          decoration: BoxDecoration(
-                            color: Colors.blue,
-                            borderRadius: BorderRadius.circular(8),
-                            border: Border.all(color: Colors.black),
-                          ),
-                          child: InteractiveViewer(
-                            child: Image.file(
-                              File(_image!.path),
-                              alignment: Alignment.center,
-                              // width: 100,
-                              // height: 100,
-                              fit: BoxFit.contain,
-                            ),
-                          )),
+                        padding: const EdgeInsets.all(5),
+                        height: 240,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: _image!.path.contains('gallery')
+                            ? PhotoView(
+                                imageProvider: FileImage(File(_image!.path)),
+                                minScale: PhotoViewComputedScale.contained,
+                                maxScale: PhotoViewComputedScale.covered * 2,
+                              )
+                            : PhotoViewGallery.builder(
+                                itemCount: 1,
+                                builder: (context, index) {
+                                  return PhotoViewGalleryPageOptions(
+                                    imageProvider:
+                                        FileImage(File(_image!.path)),
+                                    minScale: PhotoViewComputedScale.contained,
+                                    maxScale:
+                                        PhotoViewComputedScale.covered * 2,
+                                  );
+                                },
+                                scrollPhysics: BouncingScrollPhysics(),
+                                backgroundDecoration: BoxDecoration(
+                                  color: Colors.black,
+                                ),
+                                pageController: PageController(),
+                              ),
+                      ),
                     ),
                   ],
                 ),
