@@ -20,7 +20,7 @@ class _FormPageState extends State<FormPage> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text(
-            "Stepper Widget ",
+            "Wizard Test",
           ),
           centerTitle: true,
         ),

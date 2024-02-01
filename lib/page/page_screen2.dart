@@ -138,7 +138,7 @@ class _PageScreen2State extends State<PageScreen2> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Pratinjau Gambar",
+                      "Image Preview",
                       textAlign: TextAlign.start,
                       style:
                           TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
